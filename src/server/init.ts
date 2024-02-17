@@ -3,15 +3,20 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 
-export const createContext = async ({ req, resHeaders }: FetchCreateContextFnOptions) => {
+export const createContext = async ({
+  req,
+  resHeaders,
+}: FetchCreateContextFnOptions): Promise<{
+  isAuth: boolean;
+  req?: Request;
+}> => {
   const isAuth = false;
 
   return {
     isAuth,
-    req
+    req,
   };
 };
-
 
 const t = initTRPC.context<typeof createContext>().create({
   transformer: superjson,
@@ -27,6 +32,9 @@ const t = initTRPC.context<typeof createContext>().create({
   },
 });
 
-export const {router: createTRPCRouter, createCallerFactory, mergeRouters} = t;
+export const {
+  router: createTRPCRouter,
+  createCallerFactory,
+  mergeRouters,
+} = t;
 export const publicProcedure = t.procedure;
-

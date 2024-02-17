@@ -1,5 +1,5 @@
 import { createTRPCRouter, mergeRouters, publicProcedure} from "@/server/init";
-import TodoRouter from "./routers/todo";
+import StarwarsRouter from "./routers/starwars";
 
-export const appRouter = mergeRouters(TodoRouter)
+export const appRouter = mergeRouters(StarwarsRouter)
 export type AppRouter = typeof appRouter;
